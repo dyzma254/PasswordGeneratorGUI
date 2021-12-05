@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -11,8 +13,11 @@ public class PasswordGenerator extends JFrame{
     private JTextField passwordField;
     private JButton generujbtn;
     private JCheckBox wielkie_check;
-    private JCheckBox ukryj_check;
     private JCheckBox cyfry_check;
+    private JTextField ile_cyfr;
+
+
+    private int ile;
     private static final String LOWER = "abcdefghijklmnopqrstuvwxyz";
     private static final String UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String SPECIAL = "0123456789!@#$%&*()_+-=[]|,./?><";
@@ -21,6 +26,13 @@ public class PasswordGenerator extends JFrame{
     private boolean useSPECIAL;
 
 
+    public int getIle() {
+        return ile;
+    }
+
+    public void setIle(int ile) {
+        this.ile = ile;
+    }
 
 
 
@@ -40,6 +52,7 @@ public class PasswordGenerator extends JFrame{
                 Random random = new Random(System.nanoTime());
                 // Build the password.
                 List<String> charCategories = new ArrayList<>(4);
+                charCategories.add(LOWER);
 
                 if (useUPPER) {
                     charCategories.add(UPPER);
@@ -50,12 +63,25 @@ public class PasswordGenerator extends JFrame{
                 else{
                     charCategories.add(LOWER);
                 }
-                for (int i = 0; i < 8; i++) {
+                setIle(Integer.valueOf(ile_cyfr.getText()));
+                int dlugosc = getIle();
+                for (int i = 0; i < dlugosc; i++) {
                     String charCategory = charCategories.get(random.nextInt(charCategories.size()));
                     int position = random.nextInt(charCategory.length());
                     password.append(charCategory.charAt(position));
                 }
                 passwordField.setText(password.toString());
+//
+            }
+        });
+        ile_cyfr.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c)){
+                    e.consume();
+                }
+
             }
         });
     }
