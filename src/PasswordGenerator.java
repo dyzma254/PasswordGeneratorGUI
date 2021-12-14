@@ -15,6 +15,7 @@ public class PasswordGenerator extends JFrame{
     private JCheckBox wielkie_check;
     private JCheckBox cyfry_check;
     private JTextField ile_cyfr;
+    private JLabel MinLabel;
 
 
     private int ile;
