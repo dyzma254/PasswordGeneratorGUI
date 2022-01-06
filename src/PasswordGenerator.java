@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
 public class PasswordGenerator extends JFrame{
     private JPanel mainWindow;
     private JLabel titleLabel;
@@ -16,7 +17,6 @@ public class PasswordGenerator extends JFrame{
     private JCheckBox cyfry_check;
     private JTextField ile_cyfr;
 
-
     private int ile;
     private static final String LOWER = "abcdefghijklmnopqrstuvwxyz";
     private static final String UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -24,8 +24,6 @@ public class PasswordGenerator extends JFrame{
 
     private boolean useUPPER;
     private boolean useSPECIAL;
-
-
     public int getIle() {
         return ile;
     }
@@ -33,8 +31,6 @@ public class PasswordGenerator extends JFrame{
     public void setIle(int ile) {
         this.ile = ile;
     }
-
-
 
     public PasswordGenerator(String title){
         super(title);
@@ -65,13 +61,23 @@ public class PasswordGenerator extends JFrame{
                 }
                 setIle(Integer.valueOf(ile_cyfr.getText()));
                 int dlugosc = getIle();
+
                 for (int i = 0; i < dlugosc; i++) {
                     String charCategory = charCategories.get(random.nextInt(charCategories.size()));
                     int position = random.nextInt(charCategory.length());
                     password.append(charCategory.charAt(position));
                 }
-                passwordField.setText(password.toString());
-//
+
+                String haslo = password.toString();
+                if(haslo.matches(".*[ABCDEFGHIJKLMNOPQRSTUWYZ].*") && useUPPER) {
+                    passwordField.setText(haslo);
+                }
+                if(haslo.matches(".*[0123456789!@#$%&*()_+=|,./?><].*") && useSPECIAL) {
+                    passwordField.setText(haslo);
+                }
+                else if(!useUPPER && !useSPECIAL) { passwordField.setText(haslo);}
+
+
             }
         });
         ile_cyfr.addKeyListener(new KeyAdapter() {
