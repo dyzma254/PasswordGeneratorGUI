@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -6,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import javax.swing.JColorChooser;
 
 
 public class PasswordGenerator extends JFrame{
@@ -17,6 +19,7 @@ public class PasswordGenerator extends JFrame{
     private JCheckBox cyfry_check;
     private JTextField ile_cyfr;
     private JLabel MinLabel;
+    private JButton color;
 
     private int ile;
     private static final String LOWER = "abcdefghijklmnopqrstuvwxyz";
@@ -91,10 +94,20 @@ public class PasswordGenerator extends JFrame{
 
             }
         });
+        color.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Color newColor = JColorChooser.showDialog(null, "Choose a color", Color.RED);
+                mainWindow.setBackground(newColor);
+            }
+        });
     }
     public static void main(String[] args){
         JFrame frame = new PasswordGenerator("Password Generator");
         frame.setVisible(true);
+
+
+
     }
 
 
